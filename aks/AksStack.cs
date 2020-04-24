@@ -22,7 +22,7 @@ class AksStack : Stack
         var resourceGroup = new ResourceGroup(resourceGroupName, new ResourceGroupArgs
         {
             Name = resourceGroupName,
-            Tags = tags
+            Tags = tags,
         });
 
         var password = new RandomPassword("password", new RandomPasswordArgs
@@ -107,10 +107,17 @@ class AksStack : Stack
                 ServiceCidr = "10.2.2.0/24",
                 DockerBridgeCidr = "172.17.0.1/16",
             },
+            AddonProfile = new KubernetesClusterAddonProfileArgs
+            {
+                KubeDashboard = new KubernetesClusterAddonProfileKubeDashboardArgs
+                {
+                    Enabled = true
+                }
+            }
         });
 
-        KubeConfig = cluster.KubeConfigRaw;
+        // KubeConfig = cluster.KubeConfigRaw;
     }
 
-    [Output] public Output<string> KubeConfig { get; set; }
+    // [Output] public Output<string> KubeConfig { get; set; }
 }
