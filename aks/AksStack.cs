@@ -14,7 +14,18 @@ class AksStack : Stack
 {
     public AksStack()
     {
-        var resourceGroup = new ResourceGroup("aks-rg");
+        var resourceGroupName = "r500-mano";
+        var tags = new InputMap<string>
+        {
+            {"owner", "m.novak@quadient.com"},
+            {"budget", "200"},
+            {"trackingId", "CSE-3200"},
+        };
+        var resourceGroup = new ResourceGroup(resourceGroupName, new ResourceGroupArgs
+        {
+            Name = resourceGroupName,
+            Tags = tags
+        });
 
         var password = new RandomPassword("password", new RandomPasswordArgs
         {
@@ -62,8 +73,10 @@ class AksStack : Stack
         });
 
         // Now allocate an AKS cluster.
-        var cluster = new KubernetesCluster("aksCluster", new KubernetesClusterArgs
+        var cluster = new KubernetesCluster(resourceGroupName, new KubernetesClusterArgs
         {
+            Name = resourceGroupName,
+            Tags = tags,
             ResourceGroupName = resourceGroup.Name,
             DefaultNodePool = new KubernetesClusterDefaultNodePoolArgs
             {
