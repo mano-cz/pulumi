@@ -1,5 +1,3 @@
-// Copyright 2016-2020, Pulumi Corporation.  All rights reserved.
-
 using Pulumi;
 using Pulumi.AzureAD;
 using Pulumi.Azure.ContainerService;
@@ -111,7 +109,7 @@ class AksStack : Stack
             },
         });
 
-        this.KubeConfig = cluster.KubeConfigRaw;
+        KubeConfig = cluster.KubeConfigRaw;
     }
 
     [Output] public Output<string> KubeConfig { get; set; }
