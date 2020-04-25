@@ -1,3 +1,3 @@
-name: azure-cs-static-website
+name: wedding
 runtime: dotnet
-description: Demo to show how to configure static site hosting in Azure storage using Azure storage Sdk
+description: wedding website
