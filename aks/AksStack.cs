@@ -5,6 +5,7 @@ using Pulumi.Azure.ContainerService.Inputs;
 using Pulumi.Azure.Core;
 using Pulumi.Azure.Network;
 using Pulumi.Azure.Role;
+using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
 using Pulumi.Random;
 using Pulumi.Tls;
 
@@ -116,7 +117,30 @@ class AksStack : Stack
             }
         });
 
-        // todo create cluster role binding viz script
+        var k8sProvider = new Pulumi.Kubernetes.Provider("k8s", new Pulumi.Kubernetes.ProviderArgs
+        {
+            KubeConfig = cluster.KubeConfigRaw
+        });
+
+        // kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+        var dashboardRole = new Pulumi.Kubernetes.Rbac.V1.ClusterRoleBinding("dashboard",
+            new ClusterRoleBindingArgs
+            {
+                RoleRef = new RoleRefArgs
+                {
+                    ApiGroup = "rbac.authorization.k8s.io",
+                    Kind = "ClusterRole",
+                    Name = "cluster-admin"
+                },
+                Subjects = new SubjectArgs
+                {
+                    ApiGroup = "",
+                    Kind = "ServiceAccount",
+                    Name = "kubernetes-dashboard",
+                    Namespace = "kube-system"
+                }
+            }, new CustomResourceOptions { Provider = k8sProvider });
+
 
         // KubeConfig = cluster.KubeConfigRaw;
     }
