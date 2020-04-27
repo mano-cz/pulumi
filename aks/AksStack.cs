@@ -116,6 +116,8 @@ class AksStack : Stack
             }
         });
 
+        // todo create cluster role binding viz script
+
         // KubeConfig = cluster.KubeConfigRaw;
     }
 
