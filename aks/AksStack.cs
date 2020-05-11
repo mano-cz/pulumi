@@ -68,7 +68,7 @@ class AksStack : Stack
         {
             ResourceGroupName = resourceGroup.Name,
             VirtualNetworkName = vnet.Name,
-            AddressPrefix = "10.2.1.0/24",
+            AddressPrefixes = "10.2.1.0/24",
         });
 
         // Now allocate an AKS cluster.
