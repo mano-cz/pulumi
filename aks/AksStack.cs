@@ -5,6 +5,7 @@ using Pulumi.Azure.ContainerService.Inputs;
 using Pulumi.Azure.Core;
 using Pulumi.Azure.Network;
 using Pulumi.Azure.Role;
+using Pulumi.Azure.Storage;
 using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
 using Pulumi.Random;
 using Pulumi.Tls;
@@ -141,6 +142,19 @@ class AksStack : Stack
                 }
             }, new CustomResourceOptions { Provider = k8sProvider });
 
+        var mano1StorageAccount = new Account("mano1", new AccountArgs
+        {
+            ResourceGroupName = resourceGroup.Name,
+            AccountReplicationType = "LRS",
+            AccountTier = "Standard"
+        });
+
+        var mano2StorageAccount = new Account("mano2", new AccountArgs
+        {
+            ResourceGroupName = resourceGroup.Name,
+            AccountReplicationType = "LRS",
+            AccountTier = "Standard"
+        });
 
         // KubeConfig = cluster.KubeConfigRaw;
     }
