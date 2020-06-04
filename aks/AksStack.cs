@@ -31,14 +31,16 @@ class AksStack : Stack
         {
             ResourceGroupName = resourceGroup.Name,
             AccountReplicationType = "LRS",
-            AccountTier = "Standard"
+            AccountTier = "Standard",
+            Name = "mano1"
         });
 
         var mano2StorageAccount = new Account("mano2", new AccountArgs
         {
             ResourceGroupName = resourceGroup.Name,
             AccountReplicationType = "LRS",
-            AccountTier = "Standard"
+            AccountTier = "Standard",
+            Name = "mano2"
         });
 
         var password = new RandomPassword("password", new RandomPasswordArgs
