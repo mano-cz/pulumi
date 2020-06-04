@@ -27,6 +27,20 @@ class AksStack : Stack
             Tags = tags,
         });
 
+        var mano1StorageAccount = new Account("mano1", new AccountArgs
+        {
+            ResourceGroupName = resourceGroup.Name,
+            AccountReplicationType = "LRS",
+            AccountTier = "Standard"
+        });
+
+        var mano2StorageAccount = new Account("mano2", new AccountArgs
+        {
+            ResourceGroupName = resourceGroup.Name,
+            AccountReplicationType = "LRS",
+            AccountTier = "Standard"
+        });
+
         var password = new RandomPassword("password", new RandomPasswordArgs
         {
             Length = 20,
@@ -141,20 +155,6 @@ class AksStack : Stack
                     Namespace = "kube-system"
                 }
             }, new CustomResourceOptions { Provider = k8sProvider });
-
-        var mano1StorageAccount = new Account("mano1", new AccountArgs
-        {
-            ResourceGroupName = resourceGroup.Name,
-            AccountReplicationType = "LRS",
-            AccountTier = "Standard"
-        });
-
-        var mano2StorageAccount = new Account("mano2", new AccountArgs
-        {
-            ResourceGroupName = resourceGroup.Name,
-            AccountReplicationType = "LRS",
-            AccountTier = "Standard"
-        });
 
         // KubeConfig = cluster.KubeConfigRaw;
     }
