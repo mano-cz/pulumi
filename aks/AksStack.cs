@@ -98,7 +98,7 @@ class AksStack : Stack
             {
                 Name = "aksagentpool",
                 NodeCount = 3,
-                VmSize = "Standard_B2s",
+                VmSize = "Standard_DS2_v2",
                 OsDiskSizeGb = 30,
                 VnetSubnetId = subnet.Id,
             },
@@ -116,7 +116,7 @@ class AksStack : Stack
                 ClientId = adApp.ApplicationId,
                 ClientSecret = adSpPassword.Value,
             },
-            KubernetesVersion = "1.15.10",
+            KubernetesVersion = "1.16.9",
             RoleBasedAccessControl = new KubernetesClusterRoleBasedAccessControlArgs { Enabled = true },
             NetworkProfile = new KubernetesClusterNetworkProfileArgs
             {
