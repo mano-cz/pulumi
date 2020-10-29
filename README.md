@@ -1,2 +1,2 @@
 # pulumi
-My pulumi projects
+My pulumi projects to automate some tasks in Azure.
