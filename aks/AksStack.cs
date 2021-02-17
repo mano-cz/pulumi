@@ -1,10 +1,10 @@
 using Pulumi;
+using Pulumi.Azure.Authorization;
 using Pulumi.AzureAD;
 using Pulumi.Azure.ContainerService;
 using Pulumi.Azure.ContainerService.Inputs;
 using Pulumi.Azure.Core;
 using Pulumi.Azure.Network;
-using Pulumi.Azure.Role;
 using Pulumi.Azure.Storage;
 using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
 using Pulumi.Random;
@@ -56,7 +56,7 @@ class AksStack : Stack
         }).PublicKeyOpenssh;
 
         // Create the AD service principal for the K8s cluster.
-        var adApp = new Application("aks");
+        var adApp = new Application("aks", new ApplicationArgs { Name = "aks" });
         var adSp = new ServicePrincipal("aksSp", new ServicePrincipalArgs { ApplicationId = adApp.ApplicationId });
         var adSpPassword = new ServicePrincipalPassword("aksSpPassword", new ServicePrincipalPasswordArgs
         {
@@ -116,7 +116,7 @@ class AksStack : Stack
                 ClientId = adApp.ApplicationId,
                 ClientSecret = adSpPassword.Value,
             },
-            KubernetesVersion = "1.17.13",
+            KubernetesVersion = "1.18.14",
             RoleBasedAccessControl = new KubernetesClusterRoleBasedAccessControlArgs { Enabled = true },
             NetworkProfile = new KubernetesClusterNetworkProfileArgs
             {
