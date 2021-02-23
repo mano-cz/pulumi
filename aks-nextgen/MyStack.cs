@@ -138,8 +138,8 @@ namespace aks_nextgen
                 });
 
             // Export the KubeConfig
-            this.KubeConfig = Output.Tuple(resourceGroup.Name, cluster.Name).Apply(names =>
-                GetKubeConfig(names.Item1, names.Item2));
+            //this.KubeConfig = Output.Tuple(resourceGroup.Name, cluster.Name).Apply(names =>
+            //    GetKubeConfig(names.Item1, names.Item2));
         }
 
         [Output]
